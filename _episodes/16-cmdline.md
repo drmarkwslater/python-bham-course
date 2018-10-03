@@ -16,7 +16,7 @@ keypoints:
 - "The pseudo-file `sys.stdout` connects to a program's standard output."
 ---
 
-The Jupyter Notebook and other interactive tools are great for prototyping code and exploring data,
+IPython, Jupyter Notebook and other interactive tools are great for prototyping code and exploring data,
 but sooner or later we will want to use our program in a pipeline
 or run it in a shell script to process thousands of data files.
 In order to do that,
@@ -360,60 +360,67 @@ whereas we were really taking it on faith before.
 This is yet another rule of programming:
 *test the simple things first*.
 
-We want our program to process each file separately,
-so we need a loop that executes once for each filename.
-If we specify the files on the command line,
-the filenames will be in `sys.argv`,
-but we need to be careful:
-`sys.argv[0]` will always be the name of our script,
-rather than the name of a file.
-We also need to handle an unknown number of filenames,
-since our program could be run for any number of files.
+> ## Challenge
+> 
+> We want our program to process each file separately,
+> so we need a loop that executes once for each filename.
+> If we specify the files on the command line,
+> the filenames will be in `sys.argv`,
+> but we need to be careful:
+> `sys.argv[0]` will always be the name of our script,
+> rather than the name of a file.
+> We also need to handle an unknown number of filenames,
+> since our program could be run for any number of files.
+> 
+> Add a loop to your code that loops over the given filenames and prints out the mean for each patient from each file.
+> 
+> > ## Solution
+> > The solution to both problems is to loop over the contents of `sys.argv[1:]`.
+> > The '1' tells Python to start the slice at location 1,
+> > so the program's name isn't included;
+> > since we've left off the upper bound,
+> > the slice runs to the end of the list,
+> > and includes all the filenames.
+> > Here's our changed program `readings_03.py`:
+> > 
+> > ~~~
+> > $ cat ../code/readings_03.py
+> > ~~~
+> > {: .language-bash}
+> > 
+> > ~~~
+> > import sys
+> > import numpy
+> > 
+> > def main():
+> >     script = sys.argv[0]
+> >     for filename in sys.argv[1:]:
+> >         data = numpy.loadtxt(filename, delimiter=',')
+> >         for m in numpy.mean(data, axis=1):
+> >             print(m)
+> > 
+> > if __name__ == '__main__':
+> >    main()
+> > ~~~
+> > {: .language-python}
+> > 
+> > and here it is in action:
+> > 
+> > ~~~
+> > $ python ../code/readings_03.py small-01.csv small-02.csv
+> > ~~~
+> > {: .language-bash}
+> > 
+> > ~~~
+> > 0.333333333333
+> > 1.0
+> > 13.6666666667
+> > 11.0
+> > ~~~
+> > {: .output}
+> {: .solution}
+{: .challenge}
 
-The solution to both problems is to loop over the contents of `sys.argv[1:]`.
-The '1' tells Python to start the slice at location 1,
-so the program's name isn't included;
-since we've left off the upper bound,
-the slice runs to the end of the list,
-and includes all the filenames.
-Here's our changed program
-`readings_03.py`:
-
-~~~
-$ cat ../code/readings_03.py
-~~~
-{: .language-bash}
-
-~~~
-import sys
-import numpy
-
-def main():
-    script = sys.argv[0]
-    for filename in sys.argv[1:]:
-        data = numpy.loadtxt(filename, delimiter=',')
-        for m in numpy.mean(data, axis=1):
-            print(m)
-
-if __name__ == '__main__':
-   main()
-~~~
-{: .language-python}
-
-and here it is in action:
-
-~~~
-$ python ../code/readings_03.py small-01.csv small-02.csv
-~~~
-{: .language-bash}
-
-~~~
-0.333333333333
-1.0
-13.6666666667
-11.0
-~~~
-{: .output}
 
 > ## The Right Way to Do It
 >

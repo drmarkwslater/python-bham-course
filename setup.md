@@ -18,18 +18,21 @@ Desktop.
 
 ### Running Python
 
-If you're using macOS, you should run the Anaconda Navigator (installed in `/Users/<username>/anaconda3/bin` by default unless you've moved it to `Applications`) and then go to Environments -> base(root) 'Play' button -> 'Open Terminal'. This gives you a terminal that has all
-the shell commands available that you've learnt already but also allows you to run python as well.
+Assuming you have installed Anaconda3, you should run the Anaconda Navigator (for macOS, this is installed in 
+`/Users/<username>/anaconda3/bin` by default unless you've moved it to `Applications`) and then go to 
+Environments -> base(root) 'Play' button -> 'Open Terminal'. This gives you a terminal (or command prompt in Windows) that will allow
+you to run `python` and `ipython`:
 
 <img src="../fig/shell-anaconda.png" alt="drawing" width="40%"/>
 
-If you're using Windows, you should run git-bash as you did for the shell lesson. After that, you need to enter the following commands:
+If you're using Windows and wish to have access to Python from a different command prompt, e.g. `git-bash`, you should
+ enter the following commands:
 
 ```
 export PATH="$PATH:/c/Users/$USERNAME/AppData/Local/Continuum/anaconda3/Scripts/:/c/Users/$USERNAME/AppData/Local/Continuum/anaconda3/"
 ```
 
-### Navigate to the `dswc-python` folder
+### Navigate to the `swc-python` folder
 
 Whether you are on macOS or Windows you should now be at a Shell prompt that is capable of running
 Python. You should now navigate to your `swc-python` directory:
